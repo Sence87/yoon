@@ -19,3 +19,5 @@ interface Message
      */
     public function getHashSignedById();
 }
+
+?>
