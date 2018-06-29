@@ -9,10 +9,6 @@ abstract class AggregateRoot extends Entity
      * @var Rhumsaa\Uuid\Uuid
      */
     private $id;
-    /**
-     * @var array<Message>
-     */
-    private $messages = array();
 
     protected function setId(Uuid $uuid)
     {
@@ -27,24 +23,14 @@ abstract class AggregateRoot extends Entity
         return $this->id;
     }
 
-    protected abstract function apply(Message $event);
-
-
-    public function loadFromEventStream(EventStream $eventStream)
+    /**
+     * Gets the entity hash signed by the id.
+     * @return string
+     */
+    final public function getHashSignedById()
     {
-        if ($this->events) {
-            throw new RuntimeException("AggregateRoot was already created from event stream and cannot be hydrated again.");
-        }
-        $this->setId($eventStream->getUuid());
-        foreach ($eventStream as $event) {
-            $this->executeEvent($event);
-        }
+        return sodium_crypto_generichash($this->id);
     }
 
-    public function pullMessages()
-    {
-        $events = $this->events;
-        $this->events = array();
-        return $events;
-    }
+    public abstract function apply(Event $event);
 }

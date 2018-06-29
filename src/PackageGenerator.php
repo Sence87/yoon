@@ -1,5 +1,5 @@
 <?php
-namespace YoonMvp;
+namespace Yoon\YoonMvp;
 
 class PackageGenerator
 {
