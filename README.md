@@ -1,10 +1,4 @@
-# pds/skeleton
-
-This publication describes a standard filesystem skeleton suitable for all PHP
-packages.
-
-Please see <https://github.com/php-pds/skeleton_research> for background
-information.
+# YoonMVP
 
 Command-line tools for `validating` or `generating` PDS conform packages which are included with this standard are documented [here](./docs/tools.md).
 

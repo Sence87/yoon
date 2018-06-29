@@ -1,5 +1,5 @@
 <?php
-namespace Pds\Skeleton;
+namespace YoonMvp;
 
 class TestRunner
 {
