@@ -3,7 +3,7 @@ namespace Yoon\YoonMvp;
 
 use Rhumsaa\Uuid\Uuid;
 
-abstract class AggregateRoot extends Entitiy
+abstract class AggregateRoot extends Entity
 {
     /**
      * @var Rhumsaa\Uuid\Uuid
@@ -27,24 +27,9 @@ abstract class AggregateRoot extends Entitiy
         return $this->id;
     }
 
-    protected function apply(DomainEvent $event)
-    {
-        $this->executeEvent($event);
-        $this->messages[] = $event;
-    }
+    protected abstract function apply(Message $event);
 
-    private function executeEvent(DomainEvent $event)
-    {
-        $eventName = new EventName($event);
-        $method = sprintf('apply%s', (string)$eventName);
-        if (!method_exists($this, $method)) {
-            throw new BadMethodCallException(
-                "There is no event named '$method' that can be applied to '" . get_class($this) . "'. " .
-                "If you just want to emit an event without applying changes use the raise() method."
-            );
-        }
-        $this->$method($event);
-    }
+
     public function loadFromEventStream(EventStream $eventStream)
     {
         if ($this->events) {
@@ -55,7 +40,8 @@ abstract class AggregateRoot extends Entitiy
             $this->executeEvent($event);
         }
     }
-    public function pullDomainEvents()
+
+    public function pullMessages()
     {
         $events = $this->events;
         $this->events = array();

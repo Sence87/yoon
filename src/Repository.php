@@ -9,7 +9,7 @@ interface Repository
      * @param string $className
      * @param int $expectedVersion
      *
-     * @return AggregateRoot
+     * @return Entity
      */
     public function find($className, Uuid $uuid, $expectedVersion = null) : Entity;
 }

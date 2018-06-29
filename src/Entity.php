@@ -7,15 +7,17 @@ use Rhumsaa\Uuid\Uuid;
 interface Entity
 {
     /**
-     * Gets the message id.
+     * Gets the entity id.
      * @return Rhumsaa\Uuid\Uuid
      */
 
     public function getId();
 
     /**
-     * Gets the message hash signed by the id.
+     * Gets the entity hash signed by the id.
      * @return string
      */
     public function getHashSignedById();
+
+
 }
